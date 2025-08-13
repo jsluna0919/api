@@ -17,12 +17,7 @@ public class DestinatarioMapper {
         model.setCiudad(entity.getCiudad());
         model.setDireccion(entity.getDireccion());
         model.setFechaCreacion(entity.getFechaCreacion());
-        model.setFechaModificacion(entity.getFechaModificacion());/*
-        if(entity.getPedidos() != null){
-            model.setPedidos(entity.getPedidos().stream()
-                    .map(PedidoMapper::toModel)
-                    .collect(Collectors.toList()));
-        }*/
+        model.setFechaModificacion(entity.getFechaModificacion());
         return model;
     }
 

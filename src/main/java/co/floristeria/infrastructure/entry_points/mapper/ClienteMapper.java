@@ -4,6 +4,9 @@ import co.floristeria.domain.model.cliente.Cliente;
 import co.floristeria.infrastructure.entry_points.dto.cliente.ClienteDTO;
 import co.floristeria.infrastructure.entry_points.dto.cliente.ClienteResumenDTO;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class ClienteMapper {
 
     public static ClienteDTO toClienteDTO(Cliente cliente) {
@@ -48,6 +51,13 @@ public class ClienteMapper {
                 .ciudad(dto.getCiudad())
                 .direccion(dto.getDireccion())
                 .build();
+    }
+
+    public static List<ClienteDTO> clienteDTOList(List<Cliente> clientes) {
+        if (clientes == null) return List.of();
+        return clientes.stream()
+                .map(ClienteMapper::toClienteDTO)
+                .collect(Collectors.toList());
     }
 
 }

@@ -6,7 +6,6 @@ import co.floristeria.domain.usecase.NotFoundExceptions;
 import co.floristeria.domain.usecase.pedido.PedidoUseCase;
 import co.floristeria.infrastructure.entry_points.dto.pedido.CrearPedidoDTO;
 import co.floristeria.infrastructure.entry_points.dto.pedido.PedidoDTO;
-import co.floristeria.infrastructure.entry_points.mapper.CrearPedidoMapper;
 import co.floristeria.infrastructure.entry_points.mapper.PedidoMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,10 +49,6 @@ class PedidoController {
 
     @PostMapping(path = "/crear")
     public  ResponseEntity<?> crearPedido(@RequestBody CrearPedidoDTO dto) {
-        CrearPedido pedido = PedidoMapper.toCrearPedido(dto);
-        Pedido pedidoCreado = pedidoUseCase.crearPedido(pedido);
-        return ResponseEntity.ok(pedidoCreado);
-        /*
         try {
             CrearPedido pedido = PedidoMapper.toCrearPedido(dto);
             Pedido pedidoCreado = pedidoUseCase.crearPedido(pedido);
@@ -62,8 +57,20 @@ class PedidoController {
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new ApiResponse<>(false, "Error al crear el pedido", null));
-        }*/
+        }
 
+    }
+
+    @DeleteMapping(path = "/eliminar/{id}")
+    public ResponseEntity<?> eliminarPedido(@PathVariable Long id) {
+        try {
+            pedidoUseCase.deletePedido(id);
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new ApiResponse<>(true, "Pedido eliminado exitosamente", null));
+        } catch (NotFoundExceptions.NotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ApiResponse<>(false, e.getMessage(), null));
+        }
     }
 
 

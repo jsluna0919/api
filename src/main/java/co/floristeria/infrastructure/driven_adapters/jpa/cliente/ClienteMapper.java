@@ -1,7 +1,6 @@
 package co.floristeria.infrastructure.driven_adapters.jpa.cliente;
 
 import co.floristeria.domain.model.cliente.Cliente;
-import co.floristeria.domain.model.pedido.Pedido;
 import co.floristeria.infrastructure.driven_adapters.jpa.pedido.PedidoEntity;
 
 import java.util.stream.Collectors;
@@ -22,17 +21,8 @@ public class ClienteMapper {
         model.setCiudad(entity.getCiudad());
         model.setDireccion(entity.getDireccion());
         model.setFechaCreacion(entity.getFechaCreacion());
-        model.setFechaModificacion(entity.getFechaModificacion());/*
-        if(entity.getPedidos() != null) {
-            model.setPedidos(entity.getPedidos().stream()
-                    .map(pedidoEntity -> {
-                        Pedido pedido = new Pedido();
-                        pedido.setId(pedidoEntity.getId());
-                        pedido.setFechaCreacion(pedidoEntity.getFechaCreacion());
-                        return pedido;
-                    }).collect(Collectors.toList())
-            );
-        }*/
+        model.setFechaModificacion(entity.getFechaModificacion());
+
         return  model;
     }
 

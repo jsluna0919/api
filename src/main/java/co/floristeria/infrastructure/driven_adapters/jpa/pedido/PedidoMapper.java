@@ -12,7 +12,7 @@ public class PedidoMapper {
 
         Pedido model = new Pedido();
         model.setId(entity.getId());
-        model.setCliente(ClienteMapper.toModel/*toModelSinPedido*/(entity.getCliente()));
+        model.setCliente(ClienteMapper.toModel(entity.getCliente()));
         model.setArreglo(ArregloFloralMapper.toModel(entity.getArreglo()));
         model.setDestinatario(DestinatarioMapper.toModelSinPedidos(entity.getDestinatario()));
         model.setFechaEntrega(entity.getFechaEntrega());
@@ -27,7 +27,7 @@ public class PedidoMapper {
 
         PedidoEntity entity = new PedidoEntity();
         entity.setId(model.getId());
-        entity.setCliente(ClienteMapper.toEntity/*toEntitySinPedido*/(model.getCliente()));
+        entity.setCliente(ClienteMapper.toEntity(model.getCliente()));
         entity.setArreglo(ArregloFloralMapper.toEntity(model.getArreglo()));
         entity.setDestinatario(DestinatarioMapper.toEntitySinPedidos(model.getDestinatario()));
         entity.setFechaEntrega(model.getFechaEntrega());
@@ -37,29 +37,4 @@ public class PedidoMapper {
         return entity;
     }
 
-    public static Pedido toModelSinClienteYDestinatario(PedidoEntity entity) {
-        if (entity == null) return null;
-
-        Pedido model = new Pedido();
-        model.setId(entity.getId());
-        model.setArreglo(ArregloFloralMapper.toModel(entity.getArreglo()));
-        model.setFechaEntrega(entity.getFechaEntrega());
-        model.setEstado(entity.getEstado());
-        model.setFechaCreacion(entity.getFechaCreacion());
-        model.setFechaModificacion(entity.getFechaModificacion());
-        return model;
-    }
-
-    public static PedidoEntity toEntitySinClienteYDestinatario(Pedido model) {
-        if (model == null) return null;
-
-        PedidoEntity entity = new PedidoEntity();
-        entity.setId(model.getId());
-        entity.setArreglo(ArregloFloralMapper.toEntity(model.getArreglo()));
-        entity.setFechaEntrega(model.getFechaEntrega());
-        entity.setEstado(model.getEstado());
-        entity.setFechaCreacion(model.getFechaCreacion());
-        entity.setFechaModificacion(model.getFechaModificacion());
-        return entity;
-    }
 }

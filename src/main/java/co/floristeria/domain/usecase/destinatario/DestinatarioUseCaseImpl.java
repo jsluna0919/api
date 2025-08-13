@@ -26,15 +26,20 @@ public class DestinatarioUseCaseImpl implements  DestinatarioUseCase {
     }
 
     @Override
-    public Destinatario crearDestinatario(Destinatario destinatario) {
+    public Destinatario crearDestinatario(Destinatario crearDestinatario) {
 
-        var destinatarioCreado = CodeBuilder.crearDestinatario(
-                destinatario.getNombre(),
-                destinatario.getTelefono(),
-                destinatario.getCiudad(),
-                destinatario.getDireccion()
-        );
-        return destinatarioRepository.save(destinatarioCreado);
+        Destinatario destinatrio = destinatarioRepository.findByNombreAndTelefono(
+                crearDestinatario.getNombre(),
+                crearDestinatario.getTelefono()
+        ).orElseGet(()-> destinatarioRepository.save(
+                CodeBuilder.crearDestinatario(
+                        crearDestinatario.getNombre(),
+                        crearDestinatario.getTelefono(),
+                        crearDestinatario.getCiudad(),
+                        crearDestinatario.getDireccion()
+                )
+        ));
+        return destinatrio;
     }
 
     @Override

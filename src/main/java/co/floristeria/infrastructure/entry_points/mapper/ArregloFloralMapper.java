@@ -4,6 +4,9 @@ import co.floristeria.domain.model.arreglofloral.ArregloFloral;
 import co.floristeria.infrastructure.entry_points.dto.arreglofloral.ArregloFloralDTO;
 import co.floristeria.infrastructure.entry_points.dto.arreglofloral.ArregloFloralResumenDTO;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class ArregloFloralMapper {
 
     public static ArregloFloralDTO toArregloFloralDTO(ArregloFloral arreglo) {
@@ -41,5 +44,12 @@ public class ArregloFloralMapper {
                 .mensaje(dto.getMensaje())
                 .precio(dto.getPrecio())
                 .build();
+    }
+
+    public static List<ArregloFloralDTO> arregloFloralDTOList(List<ArregloFloral> arreglo) {
+        if (arreglo == null) return List.of();
+        return arreglo.stream()
+                .map(ArregloFloralMapper::toArregloFloralDTO)
+                .collect(Collectors.toList());
     }
 }
